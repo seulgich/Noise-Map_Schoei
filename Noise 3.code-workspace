@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../Noise 3"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Noise 3",
+		"liveServer.settings.port": 5501
+	}
+}

@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ height: 100%;
+  background-color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+               "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* 🔹 Medium weight */
+  font-weight: 500;
+}
+canvas {
+  display: block;   /* 스크롤바 방지 */
+  width: 100vw;     /* 뷰포트 가로 가득 */
+  height: 100vh;    /* 뷰포트 세로 가득 */
+}

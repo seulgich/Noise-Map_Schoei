@@ -1,0 +1,7 @@
+# Huge data files (over 100MB)
+data/311_Service_Requests_from_2010_to_Present_20251020.csv
+data/filtered_311_service_requests.csv
+
+# OS generated files
+.DS_Store
+**/.DS_Store
