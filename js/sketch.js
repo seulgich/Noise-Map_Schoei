@@ -395,7 +395,7 @@ function draw() {
   if (SHOW_SOUND_UI) {
     textAlign(LEFT, BOTTOM);
     textSize(12);
-    fill(soundOn ? 'green' : 'red');
+    fill(soundOn ? 'green' : 'white');
     text(`Sound: ${soundOn ? 'ON' : 'OFF'} (M to Play/Pause) | Mic Reaction: ${micReactionOn ? 'ON' : 'OFF'} (N to Toggle)`, UI.left, height - 16);
   }
 
