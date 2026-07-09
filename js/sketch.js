@@ -28,6 +28,7 @@ let flowZOff = 0;  // flow field 시간축
 let soundOn = false;
 let audioInitialized = false;
 let micReactionOn = true;
+let SHOW_SOUND_UI = true;
 let oscillators = {};
 let masterGain;
 const SOUND_FADE_TIME = 0.0; // seconds
@@ -391,7 +392,7 @@ function draw() {
   }
 
   // Sound status indicator
-  if (audioInitialized) {
+  if (audioInitialized && SHOW_SOUND_UI) {
     textAlign(LEFT, BOTTOM);
     textSize(12);
     fill(soundOn ? 'green' : 'red');
@@ -1129,6 +1130,11 @@ function keyPressed() {
   if (key === 'n' || key === 'N') {
     micReactionOn = !micReactionOn;
     console.log(`Mic Reaction toggled: ${micReactionOn}`);
+    redraw();
+    return;
+  }
+  if (key === 'u' || key === 'U') {
+    SHOW_SOUND_UI = !SHOW_SOUND_UI;
     redraw();
     return;
   }
