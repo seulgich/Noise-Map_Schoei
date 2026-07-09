@@ -37,8 +37,9 @@ function drawLiveLines(mapAlpha, h, distortion = 0) {
     const g_live = bassShift[1] * normBass + midShift[1] * normMid + trebleShift[1] * normTreble;
     const b_live = bassShift[2] * normBass + midShift[2] * normMid + trebleShift[2] * normTreble;
 
-    // Control line alpha with the overall audio level
-    const lineAlpha = map(liveAudioInfluence, 0, 1, 50, 255);
+    // Control line alpha with the overall audio level, scaled by the incoming mapAlpha (relative to base 220)
+    const baseAlpha = map(liveAudioInfluence, 0, 1, 50, 255);
+    const lineAlpha = baseAlpha * (mapAlpha / 220);
 
     // --- Movement (Disintegration) ---
     // Only shake when loud (earthquake effect)
@@ -49,7 +50,7 @@ function drawLiveLines(mapAlpha, h, distortion = 0) {
 
     // --- Thickness (Stroke Weight) ---
     // Match horizontal line thickness exactly (no live audio influence on thickness)
-    const dataDrivenStrokeWeight = constrain(map(totalComplaintsThisHour / 50, 0, 10, 0.2, 2), 0.2, 2);
+    const dataDrivenStrokeWeight = constrain(map(totalComplaintsThisHour / 50, 0, 10, 0.1, 0.8), 0.1, 0.8);
     const finalStrokeWeight = dataDrivenStrokeWeight / viewScale;
 
     for (const ty of TYPES) {

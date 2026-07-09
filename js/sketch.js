@@ -27,6 +27,7 @@ let flowZOff = 0;  // flow field 시간축
 // Sound
 let soundOn = false;
 let audioInitialized = false;
+let micReactionOn = true;
 let oscillators = {};
 let masterGain;
 const SOUND_FADE_TIME = 0.0; // seconds
@@ -221,14 +222,14 @@ function classifyAudio6() {
 
 function draw() {
   // --- Live Audio Analysis (MOVED TO TOP) ---
-  if (mic && fft && mic.enabled) { // Check if mic and fft are ready
+  if (mic && fft && mic.enabled && micReactionOn) { // Check if mic, fft are ready and reaction is enabled
     fft.analyze();
     liveAudioLevel = mic.getLevel();
     bass = fft.getEnergy("bass");
     mid = fft.getEnergy("mid");
     treble = fft.getEnergy("treble");
   } else {
-    // If audio not ready, set defaults to avoid errors
+    // If audio not ready or reaction disabled, set defaults to avoid errors
     liveAudioLevel = 0;
     bass = 0; mid = 0; treble = 0;
   }
@@ -394,7 +395,7 @@ function draw() {
     textAlign(LEFT, BOTTOM);
     textSize(12);
     fill(soundOn ? 'green' : 'red');
-    text(`Sound: ${soundOn ? 'ON' : 'OFF'} (M to Play/Pause)`, UI.left, height - UI.b);
+    text(`Sound: ${soundOn ? 'ON' : 'OFF'} (M to Play/Pause) | Mic Reaction: ${micReactionOn ? 'ON' : 'OFF'} (N to Toggle)`, UI.left, height - 16);
   }
 
   // --- WAVY LINE VISUALIZATION (New Logic, drawn on top) ---
@@ -501,7 +502,7 @@ function drawHourLayer(h, alpha = 220, distortion = 0) {
   }
 
   // Map total complaints to stroke weight (scaled down for thinner lines)
-  const dataDrivenStrokeWeight = constrain(map(totalComplaintsThisHour / 50, 0, 10, 0.2, 2), 0.2, 2); // Max 500 complaints / 50 = 10 for mapping
+  const dataDrivenStrokeWeight = constrain(map(totalComplaintsThisHour / 50, 0, 10, 0.1, 0.8), 0.1, 0.8); // Max 500 complaints / 50 = 10 for mapping
   const finalStrokeWeight = dataDrivenStrokeWeight / viewScale; // Adjust for zoom
 
   // Calculate viewport bounds in world coordinates to draw lines across the screen
@@ -1123,6 +1124,12 @@ function mouseReleased() {
 function keyPressed() {
   if (key === 'm' || key === 'M') {
     togglePlay();
+    return;
+  }
+  if (key === 'n' || key === 'N') {
+    micReactionOn = !micReactionOn;
+    console.log(`Mic Reaction toggled: ${micReactionOn}`);
+    redraw();
     return;
   }
   if (key === 'S' || key === 's') {
