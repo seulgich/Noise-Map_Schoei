@@ -5,7 +5,31 @@
     body, canvas {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 500; /* Medium 굵기 */
-    } </style>    
+    }
+
+    #start-overlay {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+    }
+    #start-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #start-overlay span {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', Helvetica, Arial, sans-serif;
+    }
+    </style>    
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>NYC Noise Complaints</title> 
@@ -14,8 +38,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
     <script src="https://unpkg.com/p5.js-svg@1.3.1"></script>
     <script src="js/liveLines.js"></script>
-    <script src="js/sketch.js?v=2"></script>
+    <script src="js/sketch.js?v=3"></script>
 </head> 
-<body>    
+<body>
+  <div id="start-overlay">
+    <span>Click to Start</span>
+  </div>
+  <script>
+    document.getElementById('start-overlay').addEventListener('click', function() {
+      this.classList.add('hidden');
+      // p5.js initializeAudio 호출
+      if (typeof initializeAudio === 'function') {
+        initializeAudio();
+      }
+      // 0.6초 후 DOM에서 완전히 제거
+      setTimeout(() => this.remove(), 700);
+    });
+  </script>
 </body> 
 </html>
