@@ -1335,10 +1335,10 @@ function zoomOut() {
   zoomAt(width / 2, height / 2, 1 / 1.2);
 }
 
-function initializeAudio() {
+async function initializeAudio() {
   if (audioInitialized) return;
   
-  userStartAudio();
+  await userStartAudio();
   mic = new p5.AudioIn();
   mic.start();
   // Disconnect the mic from the speakers so we don't hear feedback
