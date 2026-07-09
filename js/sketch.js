@@ -27,7 +27,7 @@ let flowZOff = 0;  // flow field 시간축
 // Sound
 let soundOn = false;
 let audioInitialized = false;
-let micReactionOn = true;
+let micReactionOn = false;
 let SHOW_SOUND_UI = false;
 let oscillators = {};
 let masterGain;
