@@ -391,8 +391,8 @@ function draw() {
     drawControls();
   }
 
-  // Sound status indicator
-  if (audioInitialized && SHOW_SOUND_UI) {
+  // Sound status indicator (U key to toggle visibility)
+  if (SHOW_SOUND_UI) {
     textAlign(LEFT, BOTTOM);
     textSize(12);
     fill(soundOn ? 'green' : 'red');
